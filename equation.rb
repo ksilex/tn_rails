@@ -17,6 +17,6 @@ elsif d==0
 else
   dSqrt = Math.sqrt(d)
   x1 = (-b + dSqrt) / (2 * a)
-  x2 = (-b + -dSqrt) / (2 * a)
+  x2 = (-b -dSqrt) / (2 * a)
   puts "Первый корень равен: #{x1}\nВторой корень равен:#{x2}"
 end
