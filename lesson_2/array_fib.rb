@@ -2,12 +2,9 @@ first = 0
 second = 1
 arr = []
 
-loop do
+while first <= 100
   arr.push(first)
   first, second = second, first + second
-  if first > 100
-    break
-  end
 end
 
 print "#{arr}\n"

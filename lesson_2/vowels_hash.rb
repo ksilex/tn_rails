@@ -3,7 +3,7 @@ vowels_ids = {}
 
 ("a".."z").each do |vowel|
   if vowels.include?(vowel)
-  vowels_ids[vowel] = vowel.bytes.map{|id| id - 96}
+  vowels_ids[vowel] = vowel.bytes.map { |id| id - 96 }
   end
 end
 

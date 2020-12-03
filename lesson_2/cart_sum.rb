@@ -6,7 +6,7 @@ loop do
 
   break if name == "стоп"
 
-  if !cart[name].nil? 
+  if cart[name]
     puts "Изменить кол-во:"
     count = gets.chomp.to_f
     cart[name]["кол-во"] = count
