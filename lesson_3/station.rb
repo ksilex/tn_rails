@@ -11,13 +11,7 @@ class Station
   end
 
   def trains_count_by_type(type)
-    @count = 0
-    self.trains.each do |train|
-      if train.type == type
-        @count += 1
-      end
-    end
-    puts "Кол-во поездов по типу #{type}: #{@count}"
+    puts "Кол-во поездов по типу #{type}: #{self.trains.count {|train| train.type == type}}"
   end
 
   def trains_list

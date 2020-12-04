@@ -50,12 +50,14 @@ class Train
   end
 
   def next_station
-    id = self.route.stations.index(@current_station)
-    self.route.stations[id + 1]
+    self.route.stations[current_station_id + 1]
   end
 
   def prev_station
+    self.route.stations[current_station_id - 1] if current_station_id != 0
+  end
+
+  def current_station_id
     id = self.route.stations.index(@current_station)
-    self.route.stations[id - 1] if id != 0
   end
 end
