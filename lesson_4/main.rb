@@ -286,5 +286,3 @@ def routes_list
   @selected_route = @routes[route_choice]
 end
 end
-
-ui = UI.new
