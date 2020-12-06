@@ -12,9 +12,13 @@ class Train
     self.speed = 0
   end
 
-  def add_wagon(wagon)
+  def add_wagon
     if self.speed == 0
-      @wagons.push(wagon)
+      if self.type == "passenger"
+        self.wagons.push(PassengerWagon.new)
+      else
+        self.wagons.push(CargoWagon.new)
+      end
     else
       puts "Остановите поезд"
     end

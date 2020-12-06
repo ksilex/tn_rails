@@ -7,10 +7,13 @@ require_relative 'wagon'
 require_relative 'wagon_cargo'
 require_relative 'wagon_pass'
 
+class UI
+def initialize
 @trains = []
 @stations = []
 @routes = []
-
+main
+end
 def main 
   puts "Выберите действие
         1. Действия с поездами
@@ -114,11 +117,7 @@ def train_assign_route
 end
 
 def train_add_wagon
-  if @selected_train.type == "passenger"
-    @selected_train.add_wagon(PassengerWagon.new)
-  else
-    @selected_train.add_wagon(CargoWagon.new)
-  end
+  @selected_train.add_wagon
   train_menu
 end
 
@@ -286,5 +285,6 @@ def routes_list
   route_choice = gets.chomp.to_i - 1
   @selected_route = @routes[route_choice]
 end
+end
 
-main
+ui = UI.new
