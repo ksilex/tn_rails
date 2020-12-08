@@ -8,17 +8,17 @@ class Train
   attr_reader :number, :type, :wagons, :current_station, :route
   attr_accessor :speed
 
-  @@trains = []
+  @@trains = {}
 
   def self.find(number)
-    @@trains.select { |train| train.number == number }
+    @@trains[number]
   end
 
   def initialize(number)
     @number = number
     @speed = 0
     @wagons = []
-    @@trains.push(self)
+    @@trains[number] = self
     register_instance
   end
 

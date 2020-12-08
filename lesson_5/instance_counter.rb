@@ -9,11 +9,11 @@ module InstanceCounter
                       #поэтому так обошел, не знаю на сколько это правильно
     @@count = 0
 
-    def count 
-    @@count
+    def count
+      @@count
     end
 
-    def instances 
+    def instances
       @@count
     end
 
