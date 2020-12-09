@@ -59,10 +59,13 @@ class UI
     case type
     when "passenger"
       @trains.push(PassengerTrain.new(number))
+      puts "Пассажирский поезд №#{number} создан"
     when "cargo"
       @trains.push(CargoTrain.new(number))
+      puts "Грузовой поезд №#{number} создан"
+    else
+      Train.new(number)
     end
-    puts "Поезд №#{number} создан"
     train_menu
   end
 
@@ -82,7 +85,7 @@ class UI
           8.  Информация о поезде
           9.  Узнать название компании поезда
           10. Поменять название компании поезда
-          13. Назад"
+          11. Назад"
 
     choice = gets.chomp.to_i
 
