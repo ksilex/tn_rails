@@ -16,6 +16,7 @@ class Station
     @trains = []
     @@stations.push(self)
     register_instance
+    validate!
   end
 
   def add_train(train)
@@ -34,5 +35,18 @@ class Station
 
   def train_leave(train)
     self.trains.delete(train)
+  end
+
+  private
+
+  def validate!
+    raise "Не введено название станции" if name.empty?
+  end
+
+  def valid?
+    validate!
+    true
+  rescue
+    false
   end
 end

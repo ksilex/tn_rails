@@ -88,7 +88,7 @@ class Train
   end
 
   def validate!
-    raise "Номер поезда не может быть пустым" if number.nil?
+    raise "Номер поезда не может быть пустым" if number.empty?
     raise "Неверный формат номера" if number !~ NUMBER_FORMAT
     raise "Некорретно введен тип поезда" unless type == "cargo" || "passenger"
   end
