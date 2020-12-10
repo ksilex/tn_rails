@@ -34,12 +34,4 @@ class Route
     raise "Не корректно составлен маршрут" if ![@origin, @destination].all?
     raise "Начало и конец маршрута не могут быть одинаковы" if @origin == @destination
   end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
-
 end

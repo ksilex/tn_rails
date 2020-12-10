@@ -81,7 +81,7 @@ class Train
 
   protected
 
-  NUMBER_FORMAT = /^[a-zа-я0-9]{3}-*[a-zа-я0-9]{2}$/i
+  NUMBER_FORMAT = /^[a-zа-я0-9]{3}-?[a-zа-я0-9]{2}$/i
 
   def current_station_id
     id = self.route.stations.index(@current_station)
@@ -91,12 +91,5 @@ class Train
     raise "Номер поезда не может быть пустым" if number.empty?
     raise "Неверный формат номера" if number !~ NUMBER_FORMAT
     raise "Некорретно введен тип поезда" unless type == "cargo" || "passenger"
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
   end
 end

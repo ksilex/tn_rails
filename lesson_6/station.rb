@@ -42,11 +42,4 @@ class Station
   def validate!
     raise "Не введено название станции" if name.empty?
   end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
 end
