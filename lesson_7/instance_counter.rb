@@ -29,14 +29,5 @@ module InstanceCounter
     def register_instance
       self.class.count += 1
     end
-
-    public
-
-    def valid?
-      validate!
-      true
-    rescue
-      false
-    end
   end
 end
