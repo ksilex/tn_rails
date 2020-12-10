@@ -85,7 +85,8 @@ class UI
           8.  Информация о поезде
           9.  Узнать название компании поезда
           10. Поменять название компании поезда
-          11. Назад"
+          11. Занять место или объем в вагоне
+          12. Назад"
 
     choice = gets.chomp.to_i
 
@@ -118,6 +119,8 @@ class UI
       @selected_train.company_name = gets.chomp
       train_menu
     when 11
+      train_wagons
+    when 12
       train_menu
     end
   end
@@ -156,6 +159,24 @@ class UI
       puts "Полный маршрут: #{@selected_train.route}"
     else
       puts "Поезд не имеет маршрута"
+    end
+    train_menu
+  end
+
+  def train_wagons
+    @selected_train.wagons.each_with_index do 
+      |wagon, id| puts "Выбор: #{id+1}. Номер #{wagon.wagon_id}, Тип: #{wagon.type}"
+    end
+    puts "Выберите вагон"
+    @wagon_choice = gets.chomp.to_i - 1
+    if @selected_train.type == "cargo"
+      puts "Введите занимаемый объем"
+      val = gets.chomp.to_f
+      selected_wagon.wagon_load(val)
+      puts "Оставшийся объем: #{selected_wagon.left_volume}"
+    else
+      selected_wagon.take_seat
+      puts "Осталось мест: #{selected_wagon.free_seats}"
     end
     train_menu
   end
@@ -279,6 +300,10 @@ class UI
   end
 
   private
+
+  def selected_wagon
+    @selected_train.wagons[@wagon_choice]
+  end
 
   def stations_all
     @stations.each_with_index { |station, id| puts "Выбор: #{id+1}. #{station.name}" }

@@ -1,5 +1,6 @@
 require_relative 'company_name'
 require_relative 'instance_counter'
+require_relative 'valid_checker'
 
 class Train
   include CompanyName
@@ -88,7 +89,6 @@ class Train
     @wagons.each { |wagon| yield(wagon) }
   end
 
-  protected
 
   NUMBER_FORMAT = /^[a-zа-я0-9]{3}-?[a-zа-я0-9]{2}$/i
 
@@ -99,6 +99,6 @@ class Train
   def validate!
     raise "Номер поезда не может быть пустым" if number.empty?
     raise "Неверный формат номера" if number !~ NUMBER_FORMAT
-    raise "Некорретно введен тип поезда" unless type == "cargo" || "passenger"
+    raise "Некорретно введен тип поезда" if (type != "passenger") && (type != "cargo")
   end
 end

@@ -1,4 +1,5 @@
 require_relative 'instance_counter'
+require_relative 'valid_checker'
 
 class Route
   include InstanceCounter

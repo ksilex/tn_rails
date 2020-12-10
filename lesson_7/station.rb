@@ -1,4 +1,5 @@
 require_relative 'instance_counter'
+require_relative 'valid_checker'
 
 class Station
   include InstanceCounter
@@ -31,6 +32,16 @@ class Station
   def trains_list
     self.trains.each do |train|
       puts "Номер: #{train.number}, Тип: #{train.type}, Кол-во вагонов: #{train.wagons.count}"
+      puts "Вагоны:"
+      train.wagons.each do |wagon| 
+        print "Номер: #{wagon.wagon_id}, "
+        if wagon.type == "passenger"
+          print "Занято мест: #{wagon.taken_seats}, Свободно: #{wagon.free_seats}" 
+        else
+          print "Занят на: #{wagon.taken_volume} м(3), Свободно: #{wagon.left_volume} м(3)" 
+        end
+        print "\n"
+      end
     end
   end
 
