@@ -2,7 +2,7 @@ require_relative 'instance_counter'
 
 class Route
   include InstanceCounter
-
+  include ValidChecker
   attr_reader :stations
 
   def initialize(origin, destination)
