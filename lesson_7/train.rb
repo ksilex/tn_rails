@@ -89,6 +89,7 @@ class Train
     @wagons.each { |wagon| yield(wagon) }
   end
 
+  protected
 
   NUMBER_FORMAT = /^[a-zа-я0-9]{3}-?[a-zа-я0-9]{2}$/i
 
