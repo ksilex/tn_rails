@@ -26,7 +26,7 @@ class Station
   end
 
   def trains_count_by_type(type)
-    puts "Кол-во поездов по типу #{type}: #{trains.count { |train| train.type == type}}"
+    puts "Кол-во поездов по типу #{type}: #{trains.count { |train| train.type == type }}"
   end
 
   def trains_list

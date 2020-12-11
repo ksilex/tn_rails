@@ -66,28 +66,14 @@ class UI
   end
 
   def train_select
-    @trains.each_with_index do |train, id|
-      puts "Выбор: #{id + 1}. #{train.number}, #{train.type}"
+    @trains.each.with_index(1) do |train, id|
+      puts "Выбор: #{id}. #{train.number}, #{train.type}"
     end
     puts 'Выберите поезд для дальнейших действий'
     train_choice = gets.chomp.to_i - 1
     @selected_train = @trains[train_choice]
-    puts "Выберите действие
-          1.  Назначить маршрут поезду
-          2.  Добавить вагон
-          3.  Отцепить вагон
-          4.  Отправить поезд на следующую станцию
-          5.  Отправить поезд на предыдущую станцию
-          6.  Остановить поезд
-          7.  Изменить скорость поезда
-          8.  Информация о поезде
-          9.  Узнать название компании поезда
-          10. Поменять название компании поезда
-          11. Занять место или объем в вагоне
-          12. Назад"
-
+    train_actions_list
     choice = gets.chomp.to_i
-
     case choice
     when 1
       train_assign_route
@@ -162,8 +148,8 @@ class UI
   end
 
   def train_wagons
-    @selected_train.wagons.each_with_index do |wagon, id|
-      puts "Выбор: #{id + 1}. Номер #{wagon.wagon_id}, Тип: #{wagon.type}"
+    @selected_train.wagons.each.with_index(1) do |wagon, id|
+      puts "Выбор: #{id}. Номер #{wagon.wagon_id}, Тип: #{wagon.type}"
     end
     puts 'Выберите вагон'
     @wagon_choice = gets.chomp.to_i - 1
@@ -236,14 +222,8 @@ class UI
 
   def route_select
     routes_list
-    puts "Выберите действие
-          1. Удалить станцию с маршрута
-          2. Добавить станцию к маршруту
-          3. Просмотр станций маршрута
-          4. Назад"
-
     choice = gets.chomp.to_i
-
+    route_actions_list
     case choice
     when 1
       route_delete_station
@@ -265,8 +245,8 @@ class UI
   end
 
   def route_delete_station
-    @selected_route.stations.each_with_index do |station, id|
-      puts "Выбор: #{id + 1}. #{station.name}"
+    @selected_route.stations.each.with_index(1) do |station, id|
+      puts "Выбор: #{id}. #{station.name}"
     end
     puts 'Выберите какую станцию удалить с маршрута'
     station_choice = gets.chomp.to_i - 1
@@ -295,17 +275,41 @@ class UI
 
   private
 
+  def route_actions_list
+    puts "Выберите действие
+          1. Удалить станцию с маршрута
+          2. Добавить станцию к маршруту
+          3. Просмотр станций маршрута
+          4. Назад"
+  end
+
+  def train_actions_list
+    puts "Выберите действие
+          1.  Назначить маршрут поезду
+          2.  Добавить вагон
+          3.  Отцепить вагон
+          4.  Отправить поезд на следующую станцию
+          5.  Отправить поезд на предыдущую станцию
+          6.  Остановить поезд
+          7.  Изменить скорость поезда
+          8.  Информация о поезде
+          9.  Узнать название компании поезда
+          10. Поменять название компании поезда
+          11. Занять место или объем в вагоне
+          12. Назад"
+  end
+
   def selected_wagon
     @selected_train.wagons[@wagon_choice]
   end
 
   def stations_all
-    @stations.each_with_index { |station, id| puts "Выбор: #{id + 1}. #{station.name}" }
+    @stations.each.with_index(1) { |station, id| puts "Выбор: #{id}. #{station.name}" }
   end
 
   def routes_list
-    @routes.each_with_index do |route, id|
-      print "Выбор: #{id + 1}. "
+    @routes.each.with_index(1) do |route, id|
+      print "Выбор: #{id}. "
       route.stations.each { |station| print "#{station.name} " }
       print "\n"
     end
