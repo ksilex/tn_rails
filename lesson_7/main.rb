@@ -20,9 +20,7 @@ class UI
           1. Действия с поездами
           2. Действия со станциями
           3. Действия с маршрутами"
-
     choice = gets.chomp.to_i
-
     case choice
     when 1
       train_menu
@@ -38,9 +36,7 @@ class UI
           1. Создать поезд
           2. Действия с поездом
           3. Главное меню"
-
     choice = gets.chomp.to_i
-
     case choice
     when 1
       create_train
@@ -189,7 +185,6 @@ class UI
           2. Список всех станций и просмотр поездов на станции
           3. Главное меню"
     choice = gets.chomp.to_i
-
     case choice
     when 1
       create_station
@@ -211,7 +206,6 @@ class UI
     stations_all
     puts "1. Для просмотра поездов на станции выберите одну из списка.
           2. Чтобы вернуться назад введите 0"
-
     choice = gets.chomp.to_i - 1
     station_menu if choice == -1
     @selected_station = @stations[choice]
@@ -229,9 +223,7 @@ class UI
           1. Создать маршрут
           2. Действия с маршрутом
           3. Главное меню"
-
     choice = gets.chomp.to_i
-
     case choice
     when 1
       create_route
