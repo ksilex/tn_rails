@@ -22,23 +22,23 @@ class Station
   end
 
   def add_train(train)
-    self.trains.push(train)
+    trains.push(train)
   end
 
   def trains_count_by_type(type)
-    puts "Кол-во поездов по типу #{type}: #{self.trains.count {|train| train.type == type}}"
+    puts "Кол-во поездов по типу #{type}: #{trains.count { |train| train.type == type}}"
   end
 
   def trains_list
-    self.trains.each do |train|
+    trains.each do |train|
       puts "Номер: #{train.number}, Тип: #{train.type}, Кол-во вагонов: #{train.wagons.count}"
-      puts "Вагоны:"
-      train.wagons.each do |wagon| 
+      puts 'Вагоны:'
+      train.wagons.each do |wagon|
         print "Номер: #{wagon.wagon_id}, "
-        if wagon.type == "passenger"
-          print "Занято мест: #{wagon.taken_seats}, Свободно: #{wagon.free_seats}" 
+        if wagon.type == 'passenger'
+          print "Занято мест: #{wagon.taken_seats}, Свободно: #{wagon.free_seats}"
         else
-          print "Занят на: #{wagon.taken_volume} м(3), Свободно: #{wagon.left_volume} м(3)" 
+          print "Занят на: #{wagon.taken_volume} м(3), Свободно: #{wagon.left_volume} м(3)"
         end
         print "\n"
       end
@@ -46,16 +46,16 @@ class Station
   end
 
   def train_leave(train)
-    self.trains.delete(train)
+    trains.delete(train)
   end
 
-  def add_block_to_trains(&block)
+  def add_block_to_trains
     @trains.each { |train| yield(train) }
   end
 
   private
 
   def validate!
-    raise "Не введено название станции" if name.empty?
+    raise 'Не введено название станции' if name.empty?
   end
 end

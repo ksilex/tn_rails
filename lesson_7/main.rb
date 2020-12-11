@@ -15,7 +15,7 @@ class UI
     main
   end
 
-  def main 
+  def main
     puts "Выберите действие
           1. Действия с поездами
           2. Действия со станциями
@@ -52,15 +52,15 @@ class UI
   end
 
   def create_train
-    puts "Введите тип поезда(passenger или cargo)"
+    puts 'Введите тип поезда(passenger или cargo)'
     type = gets.chomp
-    puts "Введите номер поезда"
+    puts 'Введите номер поезда'
     number = gets.chomp
     case type
-    when "passenger"
+    when 'passenger'
       @trains.push(PassengerTrain.new(number))
       puts "Пассажирский поезд №#{number} создан"
-    when "cargo"
+    when 'cargo'
       @trains.push(CargoTrain.new(number))
       puts "Грузовой поезд №#{number} создан"
     else
@@ -70,8 +70,10 @@ class UI
   end
 
   def train_select
-    @trains.each_with_index { |train, id| puts "Выбор: #{id+1}. #{train.number}, #{train.type}" }
-    puts "Выберите поезд для дальнейших действий"
+    @trains.each_with_index do |train, id|
+      puts "Выбор: #{id + 1}. #{train.number}, #{train.type}"
+    end
+    puts 'Выберите поезд для дальнейших действий'
     train_choice = gets.chomp.to_i - 1
     @selected_train = @trains[train_choice]
     puts "Выберите действие
@@ -115,7 +117,7 @@ class UI
       puts "Компания: #{@selected_train.company_name}"
       train_menu
     when 10
-      puts "Введите название:"
+      puts 'Введите название:'
       @selected_train.company_name = gets.chomp
       train_menu
     when 11
@@ -148,29 +150,29 @@ class UI
     puts "Номер поезда: #{@selected_train.number}"
     puts "Тип: #{@selected_train.type}"
     puts "Кол-во вагонов: #{@selected_train.wagons.count}"
-    unless @selected_train.route.nil?
+    if @selected_train.route.nil?
+      puts 'Поезд не имеет маршрута'
+    else
       puts "Находится на станции: #{@selected_train.current_station.name}"
       puts "Следующая станция: #{@selected_train.next_station.name}"
-      unless @selected_train.prev_station.nil?
+      if @selected_train.prev_station.nil?
+        puts 'Поезд уже в начале маршрута'
+      else
         puts "Предыдущая станция: #{@selected_train.prev_station.name}"
-      else 
-        puts "Поезд уже в начале маршрута"
       end
       puts "Полный маршрут: #{@selected_train.route}"
-    else
-      puts "Поезд не имеет маршрута"
     end
     train_menu
   end
 
   def train_wagons
-    @selected_train.wagons.each_with_index do 
-      |wagon, id| puts "Выбор: #{id+1}. Номер #{wagon.wagon_id}, Тип: #{wagon.type}"
+    @selected_train.wagons.each_with_index do |wagon, id|
+      puts "Выбор: #{id + 1}. Номер #{wagon.wagon_id}, Тип: #{wagon.type}"
     end
-    puts "Выберите вагон"
+    puts 'Выберите вагон'
     @wagon_choice = gets.chomp.to_i - 1
-    if @selected_train.type == "cargo"
-      puts "Введите занимаемый объем"
+    if @selected_train.type == 'cargo'
+      puts 'Введите занимаемый объем'
       val = gets.chomp.to_f
       selected_wagon.wagon_load(val)
       puts "Оставшийся объем: #{selected_wagon.left_volume}"
@@ -199,7 +201,7 @@ class UI
   end
 
   def create_station
-    puts "Введите название станции"
+    puts 'Введите название станции'
     name = gets.chomp
     @stations.push(Station.new(name))
     station_menu
@@ -209,7 +211,7 @@ class UI
     stations_all
     puts "1. Для просмотра поездов на станции выберите одну из списка.
           2. Чтобы вернуться назад введите 0"
-    
+
     choice = gets.chomp.to_i - 1
     station_menu if choice == -1
     @selected_station = @stations[choice]
@@ -217,7 +219,7 @@ class UI
     puts "1. Для просмотра кол-ва поездов по типу на станции введите тип.
           2. Чтобы вернуться в меню станций введите 0"
     type = gets.chomp
-    station_menu if type == 0
+    station_menu if type.zero?
     @selected_station.trains_count_by_type(type)
     station_menu
   end
@@ -264,17 +266,17 @@ class UI
 
   def route_add_station
     stations_all
-    puts "Выберите какую станцию добавить к маршруту"
+    puts 'Выберите какую станцию добавить к маршруту'
     station_choice = gets.chomp.to_i - 1
     @selected_route.add_station(@stations[station_choice])
     route_menu
   end
 
   def route_delete_station
-    @selected_route.stations.each_with_index do |station, id| 
-      puts "Выбор: #{id+1}. #{station.name}"
+    @selected_route.stations.each_with_index do |station, id|
+      puts "Выбор: #{id + 1}. #{station.name}"
     end
-    puts "Выберите какую станцию удалить с маршрута"
+    puts 'Выберите какую станцию удалить с маршрута'
     station_choice = gets.chomp.to_i - 1
     @selected_route.delete_station(@selected_route.stations[station_choice])
     route_menu
@@ -285,14 +287,14 @@ class UI
     route_menu
   end
 
-  def create_route 
+  def create_route
     if @stations.count < 2
       create_station
     else
       stations_all
-      puts "Выберите начальную станцию"
+      puts 'Выберите начальную станцию'
       origin_choice = gets.chomp.to_i - 1
-      puts "Выберите конечную станцию"
+      puts 'Выберите конечную станцию'
       destination_choice = gets.chomp.to_i - 1
       @routes.push(Route.new(@stations[origin_choice], @stations[destination_choice]))
       route_menu
@@ -306,16 +308,16 @@ class UI
   end
 
   def stations_all
-    @stations.each_with_index { |station, id| puts "Выбор: #{id+1}. #{station.name}" }
+    @stations.each_with_index { |station, id| puts "Выбор: #{id + 1}. #{station.name}" }
   end
 
   def routes_list
-    @routes.each_with_index do |route, id| 
+    @routes.each_with_index do |route, id|
       print "Выбор: #{id + 1}. "
-      route.stations.each { |station| print "#{station.name} "}
+      route.stations.each { |station| print "#{station.name} " }
       print "\n"
     end
-    puts "Выберите маршрут для дальнейших действий"
+    puts 'Выберите маршрут для дальнейших действий'
     route_choice = gets.chomp.to_i - 1
     @selected_route = @routes[route_choice]
   end

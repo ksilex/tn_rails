@@ -15,24 +15,22 @@ class Route
   end
 
   def add_station(station)
-    self.stations.insert(-2, station)
+    stations.insert(-2, station)
   end
 
   def delete_station(station)
-    unless [self.stations.first, self.stations.last].include?(station)
-      self.stations.delete(station)
-    end
+    stations.delete(station) unless [stations.first, stations.last].include?(station)
   end
 
   def list_stations
-    puts "Станции маршрута: " 
-    self.stations.each { |station| puts "#{station.name}"}
+    puts 'Станции маршрута: '
+    stations.each { |station| puts station.name.to_s }
   end
 
   private
 
   def validate!
-    raise "Не корректно составлен маршрут" if ![@origin, @destination].all?
-    raise "Начало и конец маршрута не могут быть одинаковы" if @origin == @destination
+    raise 'Не корректно составлен маршрут' unless [@origin, @destination].all?
+    raise 'Начало и конец маршрута не могут быть одинаковы' if @origin == @destination
   end
 end

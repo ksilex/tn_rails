@@ -5,7 +5,6 @@ module IDIncrementor
   end
 
   module ClassMethods
-
     @@wagon_id = 0
 
     def wagon_id

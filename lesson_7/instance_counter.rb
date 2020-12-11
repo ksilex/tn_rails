@@ -4,9 +4,7 @@ module InstanceCounter
     base.include InstanceMethods
   end
 
-  module ClassMethods #тут насколько я понял аттры инициализируются до переменной класса
-                      #и из-за этого при обращении к методу нил возвращается
-                      #поэтому так обошел, не знаю на сколько это правильно
+  module ClassMethods
     @@count = 0
 
     def count
@@ -23,7 +21,6 @@ module InstanceCounter
   end
 
   module InstanceMethods
-
     private
 
     def register_instance

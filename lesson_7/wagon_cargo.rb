@@ -4,7 +4,7 @@ class CargoWagon < Wagon
   include IDIncrementor
 
   def initialize(volume)
-    @type = "cargo"
+    @type = 'cargo'
     @volume = volume
     volume_initial
     id_incrementor
