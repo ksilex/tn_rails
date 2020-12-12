@@ -30,18 +30,16 @@ class Train
   end
 
   def add_wagon
-    if speed.zero?
-      if type == 'passenger'
-        puts 'Введите кол-во мест'
-        seats = gets.chomp.to_i
-        wagons.push(PassengerWagon.new(seats))
-      else
-        puts 'Введите объем'
-        volume = gets.chomp.to_f
-        wagons.push(CargoWagon.new(volume))
-      end
+    return 'Остановите поезд' unless speed.zero?
+
+    if type == 'passenger'
+      puts 'Введите кол-во мест'
+      seats = gets.chomp.to_i
+      wagons.push(PassengerWagon.new(seats))
     else
-      puts 'Остановите поезд'
+      puts 'Введите объем'
+      volume = gets.chomp.to_f
+      wagons.push(CargoWagon.new(volume))
     end
     puts "Кол-во вагонов: #{@wagons.count}"
   end
@@ -62,19 +60,19 @@ class Train
   end
 
   def move_forward
-    if next_station
-      @current_station.train_leave(self)
-      @current_station = next_station
-      @current_station.add_train(self)
-    end
+    return unless next_station
+
+    @current_station.train_leave(self)
+    @current_station = next_station
+    @current_station.add_train(self)
   end
 
   def move_back
-    if prev_station
-      @current_station.train_leave(self)
-      @current_station = prev_station
-      @current_station.add_train(self)
-    end
+    return unless prev_station
+
+    @current_station.train_leave(self)
+    @current_station = prev_station
+    @current_station.add_train(self)
   end
 
   def next_station
@@ -85,8 +83,8 @@ class Train
     route.stations[current_station_id - 1] if current_station_id != 0
   end
 
-  def add_block_to_wagons
-    @wagons.each { |wagon| yield(wagon) }
+  def add_block_to_wagons(&block)
+    @wagons.map(&block)
   end
 
   protected

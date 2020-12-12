@@ -11,13 +11,11 @@ module InstanceCounter
       @@count
     end
 
-    def instances
-      @@count
-    end
-
     def count=(val)
       @@count = val
     end
+
+    alias instances count
   end
 
   module InstanceMethods

@@ -1,30 +1,18 @@
-require_relative 'id_for_wagon'
-
 class CargoWagon < Wagon
-  include IDIncrementor
-
-  def initialize(volume)
+  def initialize(seats_or_volume)
     @type = 'cargo'
-    @volume = volume
-    volume_initial
-    id_incrementor
+    super
   end
 
   def wagon_load(volume)
-    @volume -= volume
+    @seats_or_volume -= volume
   end
 
   def taken_volume
-    @volume_initial - @volume
+    @seats_or_volume_initial - @seats_or_volume
   end
 
   def left_volume
-    @volume
-  end
-
-  private
-
-  def volume_initial
-    @volume_initial = @volume
+    @seats_or_volume
   end
 end

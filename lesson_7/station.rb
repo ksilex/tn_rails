@@ -46,11 +46,11 @@ class Station
   end
 
   def train_leave(train)
-    trains.delete(train)
+    @trains.delete(train)
   end
 
-  def add_block_to_trains
-    @trains.each { |train| yield(train) }
+  def add_block_to_trains(&block)
+    @trains.map(&block)
   end
 
   private
