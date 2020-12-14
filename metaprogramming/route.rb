@@ -4,7 +4,10 @@ require_relative 'valid_checker'
 class Route
   include InstanceCounter
   include ValidChecker
+
   attr_reader :stations
+  validate :stations, :endpoints
+  validate :stations, :endpoints_differ
 
   def initialize(origin, destination)
     @stations = [origin, destination]
@@ -25,12 +28,5 @@ class Route
   def list_stations
     puts 'Станции маршрута: '
     stations.each { |station| puts station.name.to_s }
-  end
-
-  private
-
-  def validate!
-    raise 'Не корректно составлен маршрут' unless [@origin, @destination].all?
-    raise 'Начало и конец маршрута не могут быть одинаковы' if @origin == @destination
   end
 end

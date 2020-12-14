@@ -6,6 +6,9 @@ class Station
   include ValidChecker
 
   attr_reader :trains, :name
+  validate :name, :presence
+  validate :name, :format, /[a-zа-я]/i
+  validate :name, :type, String
 
   @@stations = []
 
@@ -51,11 +54,5 @@ class Station
 
   def add_block_to_trains(&block)
     @trains.map(&block)
-  end
-
-  private
-
-  def validate!
-    raise 'Не введено название станции' if name.empty?
   end
 end

@@ -9,10 +9,12 @@ class Train
   include ValidChecker
   extend Accessors
 
+  NUMBER_FORMAT = /^[a-zа-я0-9]{3}-?[a-zа-я0-9]{2}$/i.freeze
+
   attr_reader :number, :type, :wagons, :current_station, :route
-  attr_accessor :speed
-  attr_accessor_with_history :goog, :rog
-  strong_attr_accessor :jopa, Integer
+  attr_accessor_with_history :speed
+  validate :number, :presence
+  validate :number, :format, NUMBER_FORMAT
 
   @@trains = {}
 
@@ -93,15 +95,7 @@ class Train
 
   protected
 
-  NUMBER_FORMAT = /^[a-zа-я0-9]{3}-?[a-zа-я0-9]{2}$/i.freeze
-
   def current_station_id
     route.stations.index(@current_station)
-  end
-
-  def validate!
-    raise 'Номер поезда не может быть пустым' if number.empty?
-    raise 'Неверный формат номера' if number !~ NUMBER_FORMAT
-    raise 'Некорретно введен тип поезда' if (type != 'passenger') && (type != 'cargo')
   end
 end
