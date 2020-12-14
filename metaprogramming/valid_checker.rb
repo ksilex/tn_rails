@@ -21,6 +21,8 @@ module ValidChecker
       false
     end
 
+    protected
+
     def validate!
       self.class.validations.each do |validation|
         var = instance_variable_get("@#{validation[:attr]}".to_sym)
